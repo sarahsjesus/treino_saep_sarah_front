@@ -145,6 +145,19 @@ export default function Postar() {
                   </div>
                 </div>
 
+                <div className="field">
+                  <label htmlFor="unidade_medida">Unidade de medida</label>
+                  <select id="unidade_medida" name="unidade_medida" defaultValue="" required>
+                    <option value="" disabled>Selecione</option>
+                    <option value="un">Unidade</option>
+                    <option value="kg">Quilograma</option>
+                    <option value="g">Grama</option>
+                    <option value="l">Litro</option>
+                    <option value="ml">Mililitro</option>
+                    <option value="cx">Caixa</option>
+                  </select>
+                </div>
+
                 <div className="field-row">
                   <div className="field">
                     <label htmlFor="valor">Valor unitário</label>
@@ -190,15 +203,6 @@ export default function Postar() {
                     <input id="quantidade" name="quantidade" type="number" min="0.01" step="0.01" placeholder="0" required />
                   </div>
                 </div>
-                <select id="unidade_medida" name="unidade_medida" defaultValue="" required>
-                  <option value="" disabled>Selecione</option>
-                  <option value="un">Unidade</option>
-                  <option value="kg">Quilograma</option>
-                  <option value="g">Grama</option>
-                  <option value="l">Litro</option>
-                  <option value="ml">Mililitro</option>
-                  <option value="cx">Caixa</option>
-                </select>
                 <div className="field">
                   <label htmlFor="date">Data</label>
                   <input id="date" name="date" type="date" defaultValue={localDate()} required />
@@ -223,4 +227,3 @@ export default function Postar() {
     </main>
   );
 }
-
