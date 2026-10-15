@@ -52,11 +52,11 @@ export default function Postar() {
     const isProduct = mode === 'product';
     const payload = isProduct
       ? {
-        unidade_medida: values.get('unidade_medida'),
         nome: values.get('nome'),
         valor: Number(values.get('valor')),
         quantidade: Number(values.get('quantidade')),
         categoria: values.get('categoria'),
+        unidade_medida: values.get('unidade_medida'),
       }
       : {
         produtos_id: Number(values.get('produtos_id')),
