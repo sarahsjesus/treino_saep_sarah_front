@@ -10,7 +10,7 @@ type Product = {
 type FormMode = 'product' | 'movement';
 type FormMessage = { kind: 'success' | 'error'; text: string } | null;
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'https://treinosaepsarah-production.up.railway.app/';
+const apiUrl = (process.env.NEXT_PUBLIC_API_URL ?? 'https://treinosaepsarah-production.up.railway.app').replace(/\/+$/, '');
 
 function localDate() {
   const today = new Date();
@@ -52,17 +52,18 @@ export default function Postar() {
     const isProduct = mode === 'product';
     const payload = isProduct
       ? {
-          nome: values.get('nome'),
-          valor: Number(values.get('valor')),
-          quantidade: Number(values.get('quantidade')),
-          categoria: values.get('categoria'),
-        }
+        unidade_medida: values.get('unidade_medida'),
+        nome: values.get('nome'),
+        valor: Number(values.get('valor')),
+        quantidade: Number(values.get('quantidade')),
+        categoria: values.get('categoria'),
+      }
       : {
-          produtos_id: Number(values.get('produtos_id')),
-          tipo: values.get('tipo'),
-          quantidade: Number(values.get('quantidade')),
-          date: values.get('date'),
-        };
+        produtos_id: Number(values.get('produtos_id')),
+        tipo: values.get('tipo'),
+        quantidade: Number(values.get('quantidade')),
+        date: values.get('date'),
+      };
 
     try {
       const response = await fetch(`${apiUrl}/${isProduct ? 'produtos' : 'movimentacoes'}`, {
@@ -189,7 +190,15 @@ export default function Postar() {
                     <input id="quantidade" name="quantidade" type="number" min="0.01" step="0.01" placeholder="0" required />
                   </div>
                 </div>
-
+                <select id="unidade_medida" name="unidade_medida" defaultValue="" required>
+                  <option value="" disabled>Selecione</option>
+                  <option value="un">Unidade</option>
+                  <option value="kg">Quilograma</option>
+                  <option value="g">Grama</option>
+                  <option value="l">Litro</option>
+                  <option value="ml">Mililitro</option>
+                  <option value="cx">Caixa</option>
+                </select>
                 <div className="field">
                   <label htmlFor="date">Data</label>
                   <input id="date" name="date" type="date" defaultValue={localDate()} required />
